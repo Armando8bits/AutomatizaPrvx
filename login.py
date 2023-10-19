@@ -2,14 +2,8 @@ from selenium.webdriver.support.ui import WebDriverWait #para esperar el element
 from selenium.webdriver.support import expected_conditions as EC #necesario para el de arriba
 from selenium.webdriver.common.by import By #necesario para el de arriba
 
-import os
-import dotenv
-
 class Sesion:
-    def iniciar(self, driver):
-        dotenv.load_dotenv()  # cargamos las variables de entorno
-        usuari = os.getenv('usuar') # leemos las varaibles de entorno
-        passwd = os.getenv('passw')
+    def iniciar(self, driver,usuari,passwd):
         parent_guid = driver.current_window_handle
         WebDriverWait(driver,30)\
             .until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-header/header/nav/div/button/span')))\

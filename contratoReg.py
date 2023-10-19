@@ -5,6 +5,8 @@ from selenium.webdriver.common.by import By #necesario para el de arriba
 
 from selenium.webdriver.common.action_chains import ActionChains #para manejar dobleClik
 
+from selenium.webdriver.common.keys import Keys  #para enviar teclas como ENTER, ESC, etc
+
 class Contrato:
     def Registrar(self, driver):
         #para abrir el panel principal...
@@ -28,4 +30,19 @@ class Contrato:
         element = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel/div/app-contrato-empresarial-info-edit/form/p-panel[1]/div/div[2]/div/div/div/app-dropdown/div/p-dropdown/div/div[2]')))
         action = ActionChains(driver) # Realiza un doble clic en el elemento
         action.double_click(element).perform()
+        #buscar si se abrió la modal
+        #WebDriverWait(driver,90).until(EC.visibility_of((By.XPATH,'/html/body/p-dynamicdialog/div/div'))).click()
+        #print("***Apareció la modal...")
+        #espera que desaparezca el spiner de carga
+        start_time = time.time()
+        WebDriverWait(driver,90).until(EC.invisibility_of_element((By.XPATH,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/app-spinner')))
+        end_time = time.time()
+        tiempo_total= end_time- start_time
+        print("***Desapareció el spinner...en: " + str(tiempo_total))
 
+        #salir de modal, click en la X
+        #WebDriverWait(driver,30,1).until(EC.element_to_be_clickable((By.XPATH,'/html/body/p-dynamicdialog/div/div/div[1]/div'))).click()
+
+        #ingresa nombre de empresa:
+        WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.XPATH,'/html/body/p-dynamicdialog/div/div/div[2]/app-empresa-dialog/p-panel/div/div[2]/div/p-table/div/div/table/thead/tr[2]/th[3]/p-columnfilter/div/p-columnfilterformelement/input'))).send_keys(str("pichincha"))
+        WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.XPATH,'/html/body/p-dynamicdialog/div/div/div[2]/app-empresa-dialog/p-panel/div/div[2]/div/p-table/div/div/table/thead/tr[2]/th[3]/p-columnfilter/div/p-columnfilterformelement/input'))).send_keys(Keys.RETURN)
