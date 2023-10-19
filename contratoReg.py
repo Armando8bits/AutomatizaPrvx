@@ -46,3 +46,34 @@ class Contrato:
         #ingresa nombre de empresa:
         WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.XPATH,'/html/body/p-dynamicdialog/div/div/div[2]/app-empresa-dialog/p-panel/div/div[2]/div/p-table/div/div/table/thead/tr[2]/th[3]/p-columnfilter/div/p-columnfilterformelement/input'))).send_keys(str("pichincha"))
         WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.XPATH,'/html/body/p-dynamicdialog/div/div/div[2]/app-empresa-dialog/p-panel/div/div[2]/div/p-table/div/div/table/thead/tr[2]/th[3]/p-columnfilter/div/p-columnfilterformelement/input'))).send_keys(Keys.RETURN)
+
+#espera que desaparezca el spiner de carga
+        start_time = time.time()
+        WebDriverWait(driver,90).until(EC.invisibility_of_element((By.XPATH,'/html/body/p-dynamicdialog/div/div/div[2]/app-empresa-dialog/app-spinner')))
+        end_time = time.time()
+        tiempo_total= end_time- start_time
+        print("***Desapareció el 2do spinner...en: " + str(tiempo_total))
+
+        #verifica que exista el contenido en el resultado
+        #Queda para despues, por ahora solo hace click en el primer elemento que encuentra, si es que hay...
+
+        time.sleep(0.5) #da tiempo a que se cierre la modal
+
+        #Seleccionar primer elemento de la tabla de resultados
+        element = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH,'/html/body/p-dynamicdialog/div/div/div[2]/app-empresa-dialog/p-panel/div/div[2]/div/p-table/div/div/table/tbody/tr[1]')))
+        action = ActionChains(driver) # Realiza un doble clic en el elemento
+        action.double_click(element).perform()
+
+        time.sleep(1.5)
+
+        #scroll abajo para que elemento sea visible
+        '''WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel/div/app-contrato-empresarial-info-edit/form/p-panel[1]/div/div[1]/div')))\
+                    .send_keys(Keys.PAGE_DOWN)'''
+        #driver.execute_script("window.scrollTo(0, 1000);")
+        '''element = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel/div/app-contrato-empresarial-info-edit/form/p-panel[3]/div/div[2]/div/div[1]/div[2]/p-dropdown')))
+        action = ActionChains(driver) # Realiza un doble clic en el elemento
+        action.scroll_to_element(element).click()'''
+
+        #da click en dropdown AÑO
+        WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel/div/app-contrato-empresarial-info-edit/form/p-panel[3]/div/div[2]/div/div[1]/div[2]/p-dropdown'))).click()
+
