@@ -1,5 +1,6 @@
 import time
-from acciones import Accion as Accion #para efectuar los doble cliks y otros
+from ..Acciones import eventos #para efectuar los doble cliks y otros
+Evento=eventos.Accion()
 from selenium.webdriver.support.ui import WebDriverWait #para esperar el elemento hasta que cargue
 from selenium.webdriver.support import expected_conditions as EC #necesario para el de arriba
 from selenium.webdriver.common.by import By #necesario para el de arriba
@@ -9,7 +10,7 @@ from selenium.webdriver.common.keys import Keys  #para enviar teclas como ENTER,
 class Contrato:
     def Registrar(self, driver):
         #para abrir el panel principal...
-        Accion().DobleClickByXpath(driver, '//*[@id="header"]/div/i')
+        Evento.DobleClickByXpath(driver, '//*[@id="header"]/div/i')
         time.sleep(2) #da tiempo a que se despliegue el menú principal
 
         #Busca el menú contrato
@@ -23,7 +24,7 @@ class Contrato:
         #Busca botón "CREAR"
         WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-index/p-panel/div/div[1]/div/div/button[2]'))).click()
         #YA EN NUEVA PANTALLA: Busca botón lupa de "Ciudad"
-        Accion().DobleClickByXpath(driver, '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel/div/app-contrato-empresarial-info-edit/form/p-panel[1]/div/div[2]/div/div/div/app-dropdown/div/p-dropdown/div/div[2]')
+        Evento.DobleClickByXpath(driver, '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel/div/app-contrato-empresarial-info-edit/form/p-panel[1]/div/div[2]/div/div/div/app-dropdown/div/p-dropdown/div/div[2]')
         #buscar si se abrió la modal
         #WebDriverWait(driver,90).until(EC.visibility_of((By.XPATH,'/html/body/p-dynamicdialog/div/div'))).click()
         #print("***Apareció la modal...")
@@ -54,7 +55,7 @@ class Contrato:
         time.sleep(0.5) #da tiempo a que se cierre la modal
 
         #Seleccionar primer elemento de la tabla de resultados
-        Accion().DobleClickByXpath(driver, '/html/body/p-dynamicdialog/div/div/div[2]/app-empresa-dialog/p-panel/div/div[2]/div/p-table/div/div/table/tbody/tr[1]')
+        Evento.DobleClickByXpath(driver, '/html/body/p-dynamicdialog/div/div/div[2]/app-empresa-dialog/p-panel/div/div[2]/div/p-table/div/div/table/tbody/tr[1]')
         time.sleep(1.5)
 
         #scroll abajo para que elemento sea visible
@@ -63,5 +64,5 @@ class Contrato:
 
         #da click en dropdown MES
         #WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel/div/app-contrato-empresarial-info-edit/form/p-panel[3]/div/div[2]/div/div[1]/div[2]/p-dropdown/div'))).click()
-        WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel/div/app-contrato-empresarial-info-edit/form/p-panel[3]/div/div[2]/div/div[1]/div[2]/p-dropdown/di'))).send_keys("O")
+        WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel/div/app-contrato-empresarial-info-edit/form/p-panel[3]/div/div[2]/div/div[1]/div[2]/p-dropdown/di'))).send_keys("a")
         #WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel/div/app-contrato-empresarial-info-edit/form/p-panel[3]/div/div[2]/div/div[1]/div[2]/p-dropdown/di'))).send_keys(Keys.TAB)
