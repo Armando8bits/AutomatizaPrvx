@@ -1,6 +1,6 @@
 from Acciones import login, credencial
 #from login import Sesion
-from Modulos import contratoReg
+from Modulos.Contratos import contratoReg
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService #para no estar descargando el chromedriver

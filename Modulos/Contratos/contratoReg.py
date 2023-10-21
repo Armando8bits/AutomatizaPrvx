@@ -1,5 +1,5 @@
 import time
-from ..Acciones import eventos #para efectuar los doble cliks y otros
+from ...Acciones import eventos #para efectuar los doble cliks y otros
 Evento=eventos.Accion()
 from selenium.webdriver.support.ui import WebDriverWait #para esperar el elemento hasta que cargue
 from selenium.webdriver.support import expected_conditions as EC #necesario para el de arriba
