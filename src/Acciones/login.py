@@ -18,8 +18,8 @@ class Sesion:
                 WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.ID,"i0116")))\
                     .send_keys(str(usuari))
                 WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.ID,"idSIButton9"))).click()
-                WebDriverWait(driver,30,1).until(EC.element_to_be_clickable((By.ID,"i0118")))\
-                    .send_keys(str(passwd)) #el 3er parametro (1) signifia que cada seguno durnte los 30 va a verificar si ya se puede clikear, lo hice así para evitar errores, ya que por defecto lo hace pero por medio segundo
+                WebDriverWait(driver,30,2).until(EC.element_to_be_clickable((By.ID,"i0118")))\
+                    .send_keys(str(passwd)) #el 3er parametro (2) signifia que cada seguno durnte los 30 va a verificar si ya se puede clikear, lo hice así para evitar errores, ya que por defecto lo hace pero por medio segundo
                 WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.ID,"idSIButton9"))).click()
                 WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.ID,"idBtn_Back"))).click()
                 #time.sleep(5)

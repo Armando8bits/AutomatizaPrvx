@@ -65,5 +65,17 @@ class Contrato:
 
         #da click en dropdown MES
         #WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel/div/app-contrato-empresarial-info-edit/form/p-panel[3]/div/div[2]/div/div[1]/div[2]/p-dropdown/div'))).click()
-        WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel/div/app-contrato-empresarial-info-edit/form/p-panel[3]/div/div[2]/div/div[1]/div[2]/p-dropdown/di'))).send_keys("a")
-        #WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel/div/app-contrato-empresarial-info-edit/form/p-panel[3]/div/div[2]/div/div[1]/div[2]/p-dropdown/di'))).send_keys(Keys.TAB)
+        Evento.SelectItemDropdownById(driver,'pr_id_10_label',2) #selecciona mes
+        Evento.SelectItemDropdownById(driver,'pr_id_9_label',1) #selecciona año
+        Evento.SetDateByXpath(driver,"(//input[@type=\'text\'])[10]","25/11/2023") #selecciona año
+
+        ''' esta es la logica si se puede hacer la comparación con el verdadero id o xpath
+        checkbox = (driver.find_element(By.XPATH,'//p-checkbox/div/div[2]').is_selected())
+        print((checkbox))
+        driver.find_element(By.XPATH,'//p-checkbox/div/div[2]').click() #marca o desmarca checkbox
+        time.sleep(4)
+        checkbox = (driver.find_element(By.XPATH,'//p-checkbox/div/div[2]').is_selected())
+        print((checkbox))
+        '''
+
+        driver.find_element(By.XPATH,'//p-checkbox/div/div[2]').click() #marca o desmarca checkbox
