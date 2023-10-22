@@ -1,6 +1,6 @@
 from src.Acciones import login, credencial
 #from login import Sesion
-from src.Modulos.Contratos import contratoReg
+from src.Acciones import orquestador
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService #para no estar descargando el chromedriver
@@ -14,7 +14,8 @@ if credencial.Credencial.EsValida(): #si las credenciales son validas, inicia
     driver.get("https://previexappdev.azurewebsites.net")
 
     login.Sesion().iniciar(driver,credencial.Credencial.GetUsuario(),credencial.Credencial.GetPasswor()) #inicia los procesos comentados de abajo
-    contratoReg.Contrato().Registrar(driver)
+    #contratoReg.Contrato().Registrar(driver)
+    orquestador.Orquestador().Dirige(driver)
     input("***Presiona ENTER para cerrar el navegador...") #para evitar que se cierre al culminar el script
     driver.quit()
 
