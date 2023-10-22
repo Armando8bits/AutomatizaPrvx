@@ -24,6 +24,7 @@ class Contrato:
         WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-index/p-panel/div/div[1]/div/div/button[2]'))).click()
         
         #---------YA EN NUEVA PANTALLA: Busca botón lupa de "Ciudad" para desplegar modal
+        print(">> REGISTRANDO NUEVO CONTRATO EMPRESARIAL")
         Evento.ControlModalByXpath(driver,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel/div/app-contrato-empresarial-info-edit/form/p-panel[1]/div/div[2]/div/div/div/app-dropdown/div/p-dropdown/div/div[2]',
                                    '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/app-spinner',
                                    '/html/body/p-dynamicdialog/div/div/div[2]/app-empresa-dialog/app-spinner',
@@ -71,7 +72,7 @@ class Contrato:
                                    '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/app-spinner',
                                    '//td[5]') #por defecto escoge el primer equipo
         
-        time.sleep(0.5) #DA TIEMPO
+        time.sleep(1) #DA TIEMPO
 
         #controla modal de Ejecutivo Externo
         Evento.ControlModalByXpath(driver,'//div[2]/app-dropdown/div/button/span',
@@ -79,6 +80,7 @@ class Contrato:
                                    '/html/body/p-dynamicdialog/div/div/div[2]/app-empresa-dialog/app-spinner',
                                    '//th[3]/p-columnfilter/div/p-columnfilterformelement/input',
                                    't','//td[3]')
+        #time.sleep(1) #DA TIEMPO
 
         #controla modal de Ciudad Contrato
         Evento.ControlModalByXpath(driver,'//p-panel[5]/div/div[2]/div/div/div/div/app-dropdown/div/button/span',
@@ -86,6 +88,7 @@ class Contrato:
                                    '/html/body/p-dynamicdialog/div/div/div[2]/app-empresa-dialog/app-spinner',
                                    '//th[3]/p-columnfilter/div/p-columnfilterformelement/input',
                                    'g','//td[3]')
+        time.sleep(0.9) #DA TIEMPO
         
         driver.find_element(By.ID, 'codigoPostal').send_keys("080506") #ingresa codigo postal
         Evento.SelectItemDropdownByXpath(driver,'//div[2]/div/p-dropdown/div/span',2) #Documento de débito
@@ -94,9 +97,9 @@ class Contrato:
         driver.execute_script("window.scrollTo(0,document.body.scrollHeight)") #para que baje todo lo faltante
         time.sleep(2) #DA TIEMPO A QUE BAJE LA PAGINA
 
-        Evento.SelectItemDropdownByXpath(driver,'//div[3]/div/p-dropdown/div/span',2) #Tipo descuento
+        Evento.SelectItemDropdownByXpath(driver,'//div[3]/div/p-dropdown/div/span',1) #Tipo descuento
         driver.find_element(By.XPATH, '//p-inputnumber/span/input').clear() #borra campo Descuento, es vital esto para que funcione la siguiente linea
-        driver.find_element(By.XPATH, '//p-inputnumber/span/input').send_keys(25.34) #ingresa Descuento
+        driver.find_element(By.XPATH, '//p-inputnumber/span/input').send_keys(15.34) #ingresa Descuento
         Evento.SelectItemDropdownById(driver,'formaPago',2)         #ingresa forma de pago
 
         #controla modal de Banco
@@ -111,8 +114,14 @@ class Contrato:
         driver.find_element(By.ID, 'depResponsablePago').send_keys("dep responsable Pago") #ingresa departamento responsable Pago
         driver.find_element(By.ID, 'direccionRetiroCheque').send_keys("Direccion del cheque") #ingresa dirección del cheque
 
-        Evento.SelectItemDropdownById(driver,'pr_id_14_label',3)         #ingresa Periodicidad
+        Evento.SelectItemDropdownById(driver,'pr_id_14_label',4)         #ingresa Periodicidad
 
         driver.find_element(By.XPATH , '//form/div[2]/button').click()  #guarda el contrato
+
+        Evento.ManageSpinnerByXpath(driver, '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/app-spinner')
+        time.sleep(5) #DA TIEMPO
+        #obtiene numero de contrato
+        print("se generó exitosamente contrato empresarial: "+str(Evento.GetValueInputDisabledByXpath(driver, '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel[1]/div/app-contrato-empresarial-info-edit/form/p-panel[1]/div/div[2]/div/div/div[3]/input')))
+        driver.find_element(By.XPATH , '//img').click()  #sale a pantalla principal
 
 

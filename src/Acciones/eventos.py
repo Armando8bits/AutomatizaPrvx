@@ -10,12 +10,12 @@ import time
 
 class Accion:
     def DobleClickByXpath(self, driver, strXpath):
-        element = WebDriverWait(driver, 300).until(EC.element_to_be_clickable((By.XPATH,strXpath)))
+        element = WebDriverWait(driver, 300,1).until(EC.element_to_be_clickable((By.XPATH,strXpath)))
         action = ActionChains(driver) # Realiza un doble clic en el elemento
         action.double_click(element).perform()
 
     def DobleClickById(self, driver, Id):
-        element = WebDriverWait(driver, 300).until(EC.element_to_be_clickable((By.ID,Id)))
+        element = WebDriverWait(driver, 300,1).until(EC.element_to_be_clickable((By.ID,Id)))
         action = ActionChains(driver) # Realiza un doble clic en el elemento
         action.double_click(element).perform()
     
@@ -49,44 +49,77 @@ class Accion:
         #Busca botón lupa que despliega modal
         self.DobleClickByXpath(driver, XpathBoton)
         #espera que desaparezca el spiner de carga
-        start_time = time.time()
-        WebDriverWait(driver,90).until(EC.invisibility_of_element((By.XPATH,XpathSpninner1)))
-        end_time = time.time()
-        tiempo_total= end_time- start_time
-        print("MODAL ABIERTA:\n*** Desapareció el spinner #1 en: {:.2f} seg.".format(tiempo_total))
+        print("\nMODAL ABIERTA:")
+        self.ManageSpinnerByXpath(driver, XpathSpninner1)
 
             #salir de modal, click en la X
             #WebDriverWait(driver,30,1).until(EC.element_to_be_clickable((By.XPATH,'/html/body/p-dynamicdialog/div/div/div[1]/div'))).click()
         #ingresa valor a buscar,:
-        WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.XPATH, XpathFiltro))).send_keys(str(value))
-        WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.XPATH, XpathFiltro))).send_keys(Keys.RETURN)
-
+        WebDriverWait(driver,30,1).until(EC.element_to_be_clickable((By.XPATH, XpathFiltro))).send_keys(str(value))
+        WebDriverWait(driver,30,1).until(EC.element_to_be_clickable((By.XPATH, XpathFiltro))).send_keys(Keys.RETURN)
+        
         #espera que desaparezca el segundo spiner de carga
-        start_time = time.time()
-        WebDriverWait(driver,90).until(EC.invisibility_of_element((By.XPATH,XpathSpninner2)))
-        end_time = time.time()
-        tiempo_total= end_time- start_time
-        print("*** Desapareció el spinner #2 en: {:.2f} seg. **MODAL CERRADA**\n".format(tiempo_total))
+        print("\nMODAL ABIERTA:")
+        self.ManageSpinnerByXpath(driver, XpathSpninner2)
 
         #verifica que exista el contenido en el resultado
         #Queda para despues, por ahora solo hace click en el primer elemento que encuentra, si es que hay...
-        time.sleep(0.5) #da tiempo a que se cierre la modal
+        #time.sleep(1) #da tiempo a que se cierre la modal
         #Seleccionar primer elemento de la tabla de resultados
         self.DobleClickByXpath(driver, XpathItem)
-        time.sleep(1.5)
+        time.sleep(0.5)
 
     def ControlModalSFByXpath(self,driver,XpathBoton,XpathSpninner1,XpathItem):
         '''Controla las modales, se le pasa por parametro el xpath del botón que lo desencadena, spinner de espera y elemento a seleccionar'''
         #Busca botón lupa que despliega modal
         self.DobleClickByXpath(driver, XpathBoton)
         #espera que desaparezca el spiner de carga
-        start_time = time.time()
-        WebDriverWait(driver,90).until(EC.invisibility_of_element((By.XPATH,XpathSpninner1)))
-        end_time = time.time()
-        tiempo_total= end_time- start_time
-        print("MODAL ABIERTA:\n*** Desapareció el spinner en: {:.2f} seg. **MODAL CERRADA**\n".format(tiempo_total))
+        print("\nMODAL ABIERTA:")
+        self.ManageSpinnerByXpath(driver, XpathSpninner1)
         #Queda para despues, por ahora solo hace click en el primer elemento que encuentra, si es que hay...
-        time.sleep(0.5)
+        #time.sleep(0.5)
         #Seleccionar primer elemento de la tabla de resultados
         self.DobleClickByXpath(driver, XpathItem)
-        time.sleep(1.5)
+        time.sleep(0.5)
+
+    def ManageSpinnerByXpath(self, driver, XpathSpninner):
+        time.sleep(0.6)
+        start_time = time.time()
+        WebDriverWait(driver,90).until(EC.invisibility_of_element((By.XPATH,XpathSpninner)))
+        end_time = time.time()
+        tiempo_total= end_time- start_time
+        print("**Desapareció el spinner en: {:.2f} seg.".format(tiempo_total))
+        time.sleep(0.6)
+    
+    def ControlModalSeleccionByXpath(self,driver,XpathBoton,XpathSpninner1,XpathSpninner2,XpathOption):
+        '''Controla las modales, se le pasa por parametro el xpath del botón que lo desencadena, spinners de espera y Botón a seleccionar'''
+        #Busca botón que despliega modal
+        driver.find_element(By.XPATH, XpathBoton).click()
+        #espera que desaparezca el spiner de carga
+        print("\nMODAL ABIERTA:")
+        self.ManageSpinnerByXpath(driver, XpathSpninner1)
+        WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.XPATH, XpathOption))).click()
+        #espera que desaparezca el segundo spiner de carga
+        print("\nMODAL ABIERTA:")
+        self.ManageSpinnerByXpath(driver, XpathSpninner2)
+        time.sleep(0.5)
+
+    def GetValueInputDisabledById(self,driver, Id):
+        '''Devuelve un string con el contenido de un input desavilitado'''
+        # Encuentra el input desabilitado
+        input_desabilitado = driver.find_element(By.ID, Id)
+        # devuelve el contenido del input
+        return input_desabilitado.get_attribute("value")
+    
+    '''def GetValueInputDisabledByXpath1(self,driver, strXpath):
+        # Encuentra el input desabilitado
+        input_desabilitado = driver.find_element(By.XPATH, strXpath)
+        # devuelve el contenido del input
+        return input_desabilitado.get_attribute("value")'''
+    
+    def GetValueInputDisabledByXpath(self,driver, strXpath):
+        '''Devuelve un string con el contenido de un input desavilitado'''
+        # Encuentra el input desabilitado
+        input_desabilitado = WebDriverWait(driver, 90,2).until(EC.presence_of_element_located((By.XPATH, strXpath)))
+        # devuelve el contenido del input
+        return input_desabilitado.get_attribute("value")
