@@ -90,13 +90,13 @@ class Accion:
         time.sleep(0.5)
 
     def ManageSpinnerByXpath(self, driver, XpathSpninner):
-        time.sleep(0.7)
+        time.sleep(0.8)
         start_time = time.time()
         WebDriverWait(driver,90).until(EC.invisibility_of_element((By.XPATH,XpathSpninner)))
         end_time = time.time()
         tiempo_total= end_time- start_time
         print("**Desapareció el spinner en: {:.2f} seg.".format(tiempo_total))
-        time.sleep(0.7)
+        time.sleep(0.8)
     
     def ControlModalSeleccionByXpath(self,driver,XpathBoton,XpathSpninner1,XpathSpninner2,XpathOption):
         '''Controla las modales, se le pasa por parametro el xpath del botón que lo desencadena, spinners de espera y Botón a seleccionar'''

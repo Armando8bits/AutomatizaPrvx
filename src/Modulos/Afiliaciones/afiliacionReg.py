@@ -13,6 +13,7 @@ class Afiliacion:
         time.sleep(2) #da tiempo a que se despliegue el menú principal
         #Busca el menú contrato
         WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.XPATH,'//ul/app-menu-item[2]/a'))).click()
+        time.sleep(0.5)
         #Busca el menú Empresarial
         WebDriverWait(driver,90,2).until(EC.element_to_be_clickable((By.XPATH,'//ul/app-menu-item[2]/div/div/app-menu-item/div/a'))).click()
         #Busca el input "Numero de contrato" y ahreha el numero de contrato
@@ -24,13 +25,13 @@ class Afiliacion:
                                    '//td[8]/button/span')
         time.sleep(0.5)
         #click en botón CREAR
-        WebDriverWait(driver,90,1).until(EC.element_to_be_clickable((By.XPATH,'//app-afiliacion-empresarial-list/p-panel/div/div/div/div/button/span[2]'))).click()
+        WebDriverWait(driver,90,2).until(EC.element_to_be_clickable((By.XPATH,'//app-afiliacion-empresarial-list/p-panel/div/div/div/div/button/span[2]'))).click()
         Evento.ManageSpinnerByXpath(driver, '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/app-spinner')
         time.sleep(0.5)
         #---------YA EN NUEVA PANTALLA: establece "Secuencial pre-impreso":
         print(">> REGISTRANDO NUEVA AFILIACION EMPRESARIAL")
         WebDriverWait(driver,90,1).until(EC.element_to_be_clickable((By.XPATH,"//p-inputmask[@id='secuencialAfiliacion']/input"))).click()
-        driver.find_element(By.XPATH, "//p-inputmask[@id='secuencialAfiliacion']/input").send_keys("tyt565656569")
+        driver.find_element(By.XPATH, "//p-inputmask[@id='secuencialAfiliacion']/input").send_keys("tyt565656570")
         #Establece Fecha afiliación
         Evento.SetDateByXpath(driver,"//span/input","25/02/2023")
         #scroll abajo para que elemento sea visible
@@ -71,7 +72,13 @@ class Afiliacion:
         Evento.ManageSpinnerByXpath(driver, '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/app-spinner')
         #obtiene numero de Afiliacion
         print("Se generó exitosamente Afiliación empresarial: "+str(Evento.GetValueInputDisabledByXpath(driver, '/html/body/app-root/app-content-layout/div/app-afiliacion-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel[1]/div/app-afiliacion-empresarial-info-edit/form/p-panel[1]/div/div[2]/div/div[2]/div[2]/input')))
-        #se cambia a pestaña
+        #se cambia a pestaña ADICIONALES
+        WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-afiliacion-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[1]/div/ul/li[3]/a/span'))).click()
+        #oprime botón "+"
+        WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-afiliacion-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel[3]/div/app-afiliacion-empresarial-adicionales-list/p-panel/div/div[2]/div/div[1]/div[1]/button[1]'))).click()
+        #
+
+
 
         #driver.find_element(By.XPATH , '//img').click()  #sale a pantalla principal
 
