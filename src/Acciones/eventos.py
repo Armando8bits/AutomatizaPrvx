@@ -25,11 +25,13 @@ class Accion:
 
     def SelectItemDropdownById(self, driver, Id, NItem):
         '''este metodo seleciona un elemento del dropdown, donde primer elemento es 1'''
+        time.sleep(0.5)
         WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.ID,Id))).click()
         WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.XPATH,'//p-dropdownitem['+str(NItem)+']/li'))).click()
 
     def SelectItemDropdownByXpath(self, driver, strXpath, NItem):
         '''este metodo seleciona un elemento del dropdown, donde primer elemento es 1'''
+        time.sleep(0.5)
         WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.XPATH,strXpath))).click()
         WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.XPATH,'//p-dropdownitem['+str(NItem)+']/li'))).click()
     
@@ -83,13 +85,13 @@ class Accion:
         time.sleep(0.5)
 
     def ManageSpinnerByXpath(self, driver, XpathSpninner):
-        time.sleep(0.6)
+        time.sleep(0.7)
         start_time = time.time()
         WebDriverWait(driver,90).until(EC.invisibility_of_element((By.XPATH,XpathSpninner)))
         end_time = time.time()
         tiempo_total= end_time- start_time
         print("**Desapareció el spinner en: {:.2f} seg.".format(tiempo_total))
-        time.sleep(0.6)
+        time.sleep(0.7)
     
     def ControlModalSeleccionByXpath(self,driver,XpathBoton,XpathSpninner1,XpathSpninner2,XpathOption):
         '''Controla las modales, se le pasa por parametro el xpath del botón que lo desencadena, spinners de espera y Botón a seleccionar'''
@@ -105,21 +107,20 @@ class Accion:
         time.sleep(0.5)
 
     def GetValueInputDisabledById(self,driver, Id):
-        '''Devuelve un string con el contenido de un input desavilitado'''
+        '''Devuelve un string con el contenido de un input deshabilitado'''
         # Encuentra el input desabilitado
         input_desabilitado = driver.find_element(By.ID, Id)
         # devuelve el contenido del input
         return input_desabilitado.get_attribute("value")
     
-    '''def GetValueInputDisabledByXpath1(self,driver, strXpath):
-        # Encuentra el input desabilitado
-        input_desabilitado = driver.find_element(By.XPATH, strXpath)
-        # devuelve el contenido del input
-        return input_desabilitado.get_attribute("value")'''
-    
     def GetValueInputDisabledByXpath(self,driver, strXpath):
-        '''Devuelve un string con el contenido de un input desavilitado'''
-        # Encuentra el input desabilitado
-        input_desabilitado = WebDriverWait(driver, 90,2).until(EC.presence_of_element_located((By.XPATH, strXpath)))
-        # devuelve el contenido del input
-        return input_desabilitado.get_attribute("value")
+        '''Forza a devolver un string con el contenido de un input deshabilitado'''
+        Strcadena=""
+        while Strcadena=="":
+            time.sleep(1)
+            # Encuentra el input desabilitado
+            #input_desabilitado = driver.find_element(By.XPATH, strXpath)
+            input_desabilitado = WebDriverWait(driver, 90).until(EC.presence_of_element_located((By.XPATH, strXpath)))
+            # devuelve el contenido del input
+            Strcadena=input_desabilitado.get_attribute("value")
+        return Strcadena 

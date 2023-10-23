@@ -119,7 +119,7 @@ class Contrato:
         driver.find_element(By.XPATH , '//form/div[2]/button').click()  #guarda el contrato
 
         Evento.ManageSpinnerByXpath(driver, '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/app-spinner')
-        time.sleep(5) #DA TIEMPO
+        #time.sleep(5) #DA TIEMPO
         #obtiene numero de contrato
         print("se generó exitosamente contrato empresarial: "+str(Evento.GetValueInputDisabledByXpath(driver, '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel[1]/div/app-contrato-empresarial-info-edit/form/p-panel[1]/div/div[2]/div/div/div[3]/input')))
         driver.find_element(By.XPATH , '//img').click()  #sale a pantalla principal
