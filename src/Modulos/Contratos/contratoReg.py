@@ -38,18 +38,8 @@ class Contrato:
         #WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel/div/app-contrato-empresarial-info-edit/form/p-panel[3]/div/div[2]/div/div[1]/div[2]/p-dropdown/div'))).click()
         Evento.SelectItemDropdownById(driver,'pr_id_10_label',2) #selecciona mes
         Evento.SelectItemDropdownById(driver,'pr_id_9_label',2) #selecciona año
-        Evento.SetDateByXpath(driver,"(//input[@type=\'text\'])[10]","25/02/2023") #selecciona año
-        '''
-        checkbox_original='//p-checkbox/div/div[2]'
-        checbox=''
-         #esta es la logica si se puede hacer la comparación con el verdadero id o xpath
-        checkbox = (driver.find_element(By.XPATH,checbox).is_selected())
-        print((checkbox))
-        driver.find_element(By.XPATH,checkbox_original).click() #marca o desmarca checkbox
-        time.sleep(4)
-        checkbox = (driver.find_element(By.XPATH,checbox).is_selected())
-        print((checkbox))
-        '''
+        Evento.SetDateByXpath(driver,"(//input[@type=\'text\'])[10]","25/02/2023") #ingresa fecha
+
         #establece chec de vigencia inmediata
         Evento.setValueCheckboxByXpath(driver,'//p-checkbox/div/div[2]',1) #1 activa, cero no lo toca
 
@@ -68,9 +58,9 @@ class Contrato:
                                    EjecutivoInterno,'//td[4]')
         else: #si no, solo configura equipo de venta
             #controla modal de Equipo Venta / Jefe Venta
-            Evento.ControlModalSFByXpath(driver,'//div[2]/div/app-dropdown/div/button/span',
+            Evento.ControlModalSFByCssSelector(driver,'//div[2]/div/app-dropdown/div/button/span',
                                    '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/app-spinner',
-                                   '//td[5]') #por defecto escoge el primer equipo
+                                   '2','5') 
         
         time.sleep(1) #DA TIEMPO
 
@@ -119,7 +109,6 @@ class Contrato:
         driver.find_element(By.XPATH , '//form/div[2]/button').click()  #guarda el contrato
 
         Evento.ManageSpinnerByXpath(driver, '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/app-spinner')
-        #time.sleep(5) #DA TIEMPO
         #obtiene numero de contrato
         print("se generó exitosamente contrato empresarial: "+str(Evento.GetValueInputDisabledByXpath(driver, '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel[1]/div/app-contrato-empresarial-info-edit/form/p-panel[1]/div/div[2]/div/div/div[3]/input')))
         driver.find_element(By.XPATH , '//img').click()  #sale a pantalla principal

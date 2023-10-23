@@ -18,6 +18,11 @@ class Accion:
         element = WebDriverWait(driver, 300,1).until(EC.element_to_be_clickable((By.ID,Id)))
         action = ActionChains(driver) # Realiza un doble clic en el elemento
         action.double_click(element).perform()
+
+    def DobleClickByCssSelector(self, driver, CssSelector):
+        element = WebDriverWait(driver, 300,1).until(EC.element_to_be_clickable((By.CSS_SELECTOR,CssSelector)))
+        action = ActionChains(driver) # Realiza un doble clic en el elemento
+        action.double_click(element).perform()
     
     def ScrollToElementByXpath(self, driver, strXpath):
         #funcion que obtiene las coordenadas de un elemento a y de un elemento B para hacer scroll hasta el segundo elemento.
@@ -71,8 +76,8 @@ class Accion:
         self.DobleClickByXpath(driver, XpathItem)
         time.sleep(0.5)
 
-    def ControlModalSFByXpath(self,driver,XpathBoton,XpathSpninner1,XpathItem):
-        '''Controla las modales, se le pasa por parametro el xpath del botón que lo desencadena, spinner de espera y elemento a seleccionar'''
+    def ControlModalSFByCssSelector(self,driver,XpathBoton,XpathSpninner1,Item,nth_child):
+        '''Controla las modales, se le pasa por parametro el xpath del botón que lo desencadena, spinner de espera e ITEM a seleccionar'''
         #Busca botón lupa que despliega modal
         self.DobleClickByXpath(driver, XpathBoton)
         #espera que desaparezca el spiner de carga
@@ -81,7 +86,7 @@ class Accion:
         #Queda para despues, por ahora solo hace click en el primer elemento que encuentra, si es que hay...
         #time.sleep(0.5)
         #Seleccionar primer elemento de la tabla de resultados
-        self.DobleClickByXpath(driver, XpathItem)
+        self.DobleClickByCssSelector(driver, ".p-element:nth-child("+Item+") > .centrar-datos:nth-child("+nth_child+")")
         time.sleep(0.5)
 
     def ManageSpinnerByXpath(self, driver, XpathSpninner):

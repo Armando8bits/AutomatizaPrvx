@@ -3,5 +3,5 @@ from src.Modulos.Afiliaciones import afiliacionReg
 
 class Orquestador:
     def Dirige(self, driver):
-        contratoReg.Contrato().Registrar(driver)
-        #afiliacionReg.Afiliacion().Registrar(driver)
+        #contratoReg.Contrato().Registrar(driver)
+        afiliacionReg.Afiliacion().Registrar(driver)
