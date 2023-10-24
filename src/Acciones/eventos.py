@@ -87,16 +87,13 @@ class Accion:
         #time.sleep(0.5)
         #Seleccionar primer elemento de la tabla de resultados
         self.DobleClickByCssSelector(driver, ".p-element:nth-child("+Item+") > .centrar-datos:nth-child("+nth_child+")")
-        time.sleep(0.5)
 
     def ManageSpinnerByXpath(self, driver, XpathSpninner):
-        time.sleep(0.8)
         start_time = time.time()
-        WebDriverWait(driver,90).until(EC.invisibility_of_element((By.XPATH,XpathSpninner)))
+        WebDriverWait(driver,90).until(EC.invisibility_of_element((By.XPATH,XpathSpninner)))        #espera que desaparezca
         end_time = time.time()
         tiempo_total= end_time- start_time
         print("**Desapareció el spinner en: {:.2f} seg.".format(tiempo_total))
-        time.sleep(0.8)
     
     def ControlModalSeleccionByXpath(self,driver,XpathBoton,XpathSpninner1,XpathSpninner2,XpathOption):
         '''Controla las modales, se le pasa por parametro el xpath del botón que lo desencadena, spinners de espera y Botón a seleccionar'''
@@ -105,11 +102,10 @@ class Accion:
         #espera que desaparezca el spiner de carga
         print("\nMODAL ABIERTA:")
         self.ManageSpinnerByXpath(driver, XpathSpninner1)
-        WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.XPATH, XpathOption))).click()
+        WebDriverWait(driver,30).until(EC.visibility_of_element_located((By.XPATH, XpathOption))).click()
         #espera que desaparezca el segundo spiner de carga
         print("\nMODAL ABIERTA:")
         self.ManageSpinnerByXpath(driver, XpathSpninner2)
-        time.sleep(0.5)
 
     def GetValueInputDisabledById(self,driver, Id):
         '''Devuelve un string con el contenido de un input deshabilitado'''
