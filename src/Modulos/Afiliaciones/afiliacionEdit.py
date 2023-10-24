@@ -11,10 +11,11 @@ class Afiliacion:
         #para abrir el panel principal...
         Evento.DobleClickByXpath(driver, '/html/body/app-root/app-content-layout/div/app-header/header/div/i')
         #Busca el menú afiliación, la trabajé como doble click para igual da fallos recurrentes
-        WebDriverWait(driver,90,1).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[2]/a/i[2]'))).click()
+        #WebDriverWait(driver,90,1).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[2]/a/i[2]'))).click()
+        Evento.WaitClickUntilVisible_Clikeable(driver,'/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[2]/a/i[2]')
         #Evento.DobleClickByXpath(driver, '/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[2]/a/i[2]')
         #Busca el menú Empresarial (nota si la sig linea es "visibility_of_element_located" no funciona
-        WebDriverWait(driver,90,1).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[2]/div/div/app-menu-item[1]/div/a'))).click()
+        Evento.WaitClickUntilVisible_Clikeable(driver, '/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[2]/div/div/app-menu-item[1]/div/a')
         #Busca el input "Numero de contrato" y ahreha el numero de contrato
         WebDriverWait(driver,90).until(EC.visibility_of_element_located((By.XPATH,'/html/body/app-root/app-content-layout/div/app-afiliacion-empresarial-index/p-panel/div/div[2]/div/div[1]/app-afiliacion-empresarial-filter/p-panel/div/div[2]/div[1]/div/form/div/div[1]/p-inputnumber/span/input')))\
             .send_keys(303)

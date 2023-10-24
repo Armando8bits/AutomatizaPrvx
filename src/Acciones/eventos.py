@@ -9,6 +9,18 @@ from selenium.webdriver.common.keys import Keys  #para enviar teclas como ENTER,
 import time
 
 class Accion:
+    def WaitClickUntilVisible_Clikeable(self,driver,strXXpath):
+        elements= WebDriverWait(driver,90).until(
+            EC.all_of(
+            EC.visibility_of_element_located((By.XPATH,strXXpath))
+            ,
+            EC.element_to_be_clickable((By.XPATH,strXXpath))
+            )
+            )
+        #if len(elements) > 0: # si está vacio el array no hace clicl
+        elements[0].click() 
+
+        
     def DobleClickByXpath(self, driver, strXpath):
         element = WebDriverWait(driver, 300,1).until(EC.element_to_be_clickable((By.XPATH,strXpath)))
         action = ActionChains(driver) # Realiza un doble clic en el elemento
