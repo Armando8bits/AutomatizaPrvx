@@ -7,17 +7,15 @@ from selenium.webdriver.support import expected_conditions as EC #necesario para
 from selenium.webdriver.common.by import By #necesario para el de arriba
 
 class Afiliacion:
-    def Registrar(self, driver):
+    def Registrar(self, driver,NContrato):
         #para abrir el panel principal...
-        Evento.DobleClickByXpath(driver, '//*[@id="header"]/div/i')
-        time.sleep(2) #da tiempo a que se despliegue el menú principal
-        #Busca el menú contrato
-        WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.XPATH,'//ul/app-menu-item[2]/a'))).click()
-        time.sleep(0.5)
+        Evento.DobleClickByXpath(driver, '/html/body/app-root/app-content-layout/div/app-header/header/div/i')
+        #Busca el menú Afiliación
+        Evento.WaitClickUntilVisible_Clikeable(driver,'/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[3]')
         #Busca el menú Empresarial
-        WebDriverWait(driver,90,2).until(EC.element_to_be_clickable((By.XPATH,'//ul/app-menu-item[2]/div/div/app-menu-item/div/a'))).click()
+        Evento.WaitClickUntilVisible_Clikeable(driver, '/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[3]/div/div/app-menu-item[1]')
         #Busca el input "Numero de contrato" y ahreha el numero de contrato
-        WebDriverWait(driver,90,2).until(EC.element_to_be_clickable((By.XPATH,'//input'))).send_keys(303)
+        WebDriverWait(driver,90,2).until(EC.element_to_be_clickable((By.XPATH,'//input'))).send_keys(NContrato)
         #click en botñon BUSCAR y seleccionar contrato
         Evento.ControlModalSeleccionByXpath(driver,'//span/i',
                                    '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/app-spinner',
@@ -25,7 +23,8 @@ class Afiliacion:
                                    '//td[8]/button/span')
         time.sleep(0.5)
         #click en botón CREAR
-        WebDriverWait(driver,90,2).until(EC.element_to_be_clickable((By.XPATH,'//app-afiliacion-empresarial-list/p-panel/div/div/div/div/button/span[2]'))).click()
+        Evento.WaitClickUntilVisible_Clikeable(driver, '/html/body/app-root/app-content-layout/div/app-afiliacion-empresarial-index/p-panel/div/div[2]/div/div[2]/app-afiliacion-empresarial-list/p-panel/div/div[1]/div/div/button[1]')
+        #WebDriverWait(driver,90,2).until(EC.element_to_be_clickable((By.XPATH,'//app-afiliacion-empresarial-list/p-panel/div/div/div/div/button/span[2]'))).click()
         Evento.ManageSpinnerByXpath(driver, '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/app-spinner')
         time.sleep(0.5)
         #---------YA EN NUEVA PANTALLA: establece "Secuencial pre-impreso":
@@ -42,7 +41,7 @@ class Afiliacion:
                                    '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/app-spinner',
                                    '/html/body/p-dynamicdialog/div/div/div[2]/app-empresa-dialog/app-spinner',
                                    '//th[3]/p-columnfilter/div/p-columnfilterformelement/input',
-                                   'PAMELA','//td[3]')
+                                   'PAMELA','/html/body/p-dynamicdialog/div/div/div[2]/app-persona-dialog/p-panel/div/div[2]/div/p-table/div/div/table/tbody/tr[1]')
         time.sleep(0.5)
         #scroll abajo para que elemento sea visible
         driver.execute_script("window.scrollTo(0,document.body.scrollHeight*0.6)")

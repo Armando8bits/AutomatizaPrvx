@@ -2,26 +2,24 @@ import time
 from ...Acciones import eventos
 #para efectuar los doble cliks y otros
 Evento=eventos.Accion()
-from selenium.webdriver.support.ui import WebDriverWait #para esperar el elemento hasta que cargue
-from selenium.webdriver.support import expected_conditions as EC #necesario para el de arriba
 from selenium.webdriver.common.by import By #necesario para el de arriba
 
 class Contrato:
     def Registrar(self, driver):
         #para abrir el panel principal...
-        Evento.DobleClickByXpath(driver, '//*[@id="header"]/div/i')
-        time.sleep(2) #da tiempo a que se despliegue el menú principal
+        Evento.DobleClickByXpath(driver, '/html/body/app-root/app-content-layout/div/app-header/header/div/i')
+        #time.sleep(2) #da tiempo a que se despliegue el menú principal
 
         #Busca el menú contrato
-        WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[1]/a/i[2]'))).click()
+        Evento.WaitClickUntilVisible_Clikeable(driver,'/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[2]/a')
         #Busca el menú Empresarial
-        WebDriverWait(driver,90,2).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[1]/div/div/app-menu-item[1]/a'))).click()
+        Evento.WaitClickUntilVisible_Clikeable(driver,'/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[2]/div/div/app-menu-item[1]/a')
             #Busca el menú Activaión
             #WebDriverWait(driver,10).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[1]/div/div/app-menu-item[1]/div/div/app-menu-item[1]'))).click()
         #Busca el menú Gestión
-        WebDriverWait(driver,90,1).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[1]/div/div/app-menu-item[1]/div/div/app-menu-item[2]'))).click()
+        Evento.WaitClickUntilVisible_Clikeable(driver,'/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[2]/div/div/app-menu-item[1]/div/div/app-menu-item')
         #Busca botón "CREAR"
-        WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-index/p-panel/div/div[1]/div/div/button[2]'))).click()
+        Evento.WaitClickUntilVisible_Clikeable(driver,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-index/p-panel/div/div[1]/div/div/button[2]')
         
         #---------YA EN NUEVA PANTALLA: Busca botón lupa de "Ciudad" para desplegar modal
         print(">> REGISTRANDO NUEVO CONTRATO EMPRESARIAL")
@@ -29,7 +27,7 @@ class Contrato:
                                    '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/app-spinner',
                                    '/html/body/p-dynamicdialog/div/div/div[2]/app-empresa-dialog/app-spinner',
                                    '/html/body/p-dynamicdialog/div/div/div[2]/app-empresa-dialog/p-panel/div/div[2]/div/p-table/div/div/table/thead/tr[2]/th[3]/p-columnfilter/div/p-columnfilterformelement/input',
-                                   'pichincha','/html/body/p-dynamicdialog/div/div/div[2]/app-empresa-dialog/p-panel/div/div[2]/div/p-table/div/div/table/tbody/tr[1]')
+                                   'ECUAT','/html/body/p-dynamicdialog/div/div/div[2]/app-empresa-dialog/p-panel/div/div[2]/div/p-table/div/div/table/tbody/tr[1]')
 
         #scroll abajo para que elemento sea visible
         driver.execute_script("window.scrollTo(0,document.body.scrollHeight*0.35)") #*0.25 para que baje menos de lo normal
@@ -38,10 +36,10 @@ class Contrato:
         #WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel/div/app-contrato-empresarial-info-edit/form/p-panel[3]/div/div[2]/div/div[1]/div[2]/p-dropdown/div'))).click()
         Evento.SelectItemDropdownById(driver,'pr_id_10_label',2) #selecciona mes
         Evento.SelectItemDropdownById(driver,'pr_id_9_label',2) #selecciona año
-        Evento.SetDateByXpath(driver,"(//input[@type=\'text\'])[10]","25/02/2023") #ingresa fecha
+        #Evento.SetDateByXpath(driver,"(//input[@type=\'text\'])[10]","25/02/2023") #ingresa fecha
 
         #establece chec de vigencia inmediata
-        Evento.setValueCheckboxByXpath(driver,'//p-checkbox/div/div[2]',1) #1 activa, cero no lo toca
+        Evento.setValueCheckboxByXpath(driver,'//p-checkbox/div/div[2]',0) # 1 activa; 0 no lo toca
 
         #scroll abajo para que elemento sea visible
         driver.execute_script("window.scrollTo(0,document.body.scrollHeight*0.5)") #0.5 para que baje menos de lo normal
@@ -65,11 +63,13 @@ class Contrato:
         time.sleep(1) #DA TIEMPO
 
         #controla modal de Ejecutivo Externo
-        Evento.ControlModalByXpath(driver,'//div[2]/app-dropdown/div/button/span',
-                                   '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/app-spinner',
-                                   '/html/body/p-dynamicdialog/div/div/div[2]/app-empresa-dialog/app-spinner',
-                                   '//th[3]/p-columnfilter/div/p-columnfilterformelement/input',
-                                   't','//td[3]')
+        EjecutivoExterno=False
+        if EjecutivoExterno==True:
+            Evento.ControlModalByXpath(driver,'//div[2]/app-dropdown/div/button/span',
+                                    '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/app-spinner',
+                                    '/html/body/p-dynamicdialog/div/div/div[2]/app-empresa-dialog/app-spinner',
+                                    '//th[3]/p-columnfilter/div/p-columnfilterformelement/input',
+                                    't','//td[3]')
         #time.sleep(1) #DA TIEMPO
 
         #controla modal de Ciudad Contrato
@@ -110,7 +110,9 @@ class Contrato:
 
         Evento.ManageSpinnerByXpath(driver, '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/app-spinner')
         #obtiene numero de contrato
-        print("se generó exitosamente contrato empresarial: "+str(Evento.GetValueInputDisabledByXpath(driver, '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel[1]/div/app-contrato-empresarial-info-edit/form/p-panel[1]/div/div[2]/div/div/div[3]/input')))
+        NContrato=Evento.GetValueInputDisabledByXpath(driver, '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel[1]/div/app-contrato-empresarial-info-edit/form/p-panel[1]/div/div[2]/div/div/div[3]/input')
+        print("se generó exitosamente contrato empresarial: "+str(NContrato))
         driver.find_element(By.XPATH , '//img').click()  #sale a pantalla principal
+        return NContrato
 
 
