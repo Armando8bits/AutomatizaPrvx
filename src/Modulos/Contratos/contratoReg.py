@@ -5,7 +5,7 @@ Evento=eventos.Accion()
 from selenium.webdriver.common.by import By #necesario para el de arriba
 
 class Contrato:
-    def Registrar(self, driver):
+    def UbicarPantalla(self, driver):
         #para abrir el panel principal...
         Evento.DobleClickByXpath(driver, '/html/body/app-root/app-content-layout/div/app-header/header/div/i')
         #time.sleep(2) #da tiempo a que se despliegue el menú principal
@@ -20,7 +20,8 @@ class Contrato:
         Evento.WaitClickUntilVisible_Clikeable(driver,'/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[2]/div/div/app-menu-item[1]/div/div/app-menu-item')
         #Busca botón "CREAR"
         Evento.WaitClickUntilVisible_Clikeable(driver,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-index/p-panel/div/div[1]/div/div/button[2]')
-        
+
+    def Registrar(self, driver, Diccionario):
         #---------YA EN NUEVA PANTALLA: Busca botón lupa de "Ciudad" para desplegar modal
         print(">> REGISTRANDO NUEVO CONTRATO EMPRESARIAL")
         Evento.ControlModalByXpath(driver,'/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel/div/app-contrato-empresarial-info-edit/form/p-panel[1]/div/div[2]/div/div/div/app-dropdown/div/p-dropdown/div/div[2]',
@@ -112,7 +113,10 @@ class Contrato:
         #obtiene numero de contrato
         NContrato=Evento.GetValueInputDisabledByXpath(driver, '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel[1]/div/app-contrato-empresarial-info-edit/form/p-panel[1]/div/div[2]/div/div/div[3]/input')
         print("se generó exitosamente contrato empresarial: "+str(NContrato))
-        driver.find_element(By.XPATH , '//img').click()  #sale a pantalla principal
+        driver.find_element(By.XPATH , '//*[@id="p-panel-57-content"]/div/div/div/div[2]/button').click()  #Click boton ATRAS
         return NContrato
+    
+    def Salir(self, driver):
+        driver.find_element(By.XPATH , '//img').click()  #sale a pantalla principal
 
 
