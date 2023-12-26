@@ -14,6 +14,9 @@ class Credencial:
         if (cls.usuari is None or cls.passwd is None):
             print("***CREDENCIALES INVALIDAS o INEXISTENTES")
             BoolEstado=False
+        if not os.path.exists("Cargadatospreviex.xlsx"): #valida que exista el xlsx para carga de datos
+            print("***CARGAR MATRIZ DE DATOS Cargadatospreviex.xlsx")
+            BoolEstado=False
         return BoolEstado
     
     @classmethod
