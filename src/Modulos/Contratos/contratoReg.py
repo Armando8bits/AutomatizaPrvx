@@ -13,7 +13,7 @@ class Contrato:
         time.sleep(2) #da tiempo a que se despliegue el menú principal
 
         #Busca el menú contrato
-        WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[1]/a/i[2]'))).click()
+        WebDriverWait(driver,90).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[2]'))).click()
         #Busca el menú Empresarial
         WebDriverWait(driver,90,2).until(EC.element_to_be_clickable((By.XPATH,'/html/body/app-root/app-content-layout/div/app-side-menu/div/ul/app-menu-item[1]/div/div/app-menu-item[1]/a'))).click()
             #Busca el menú Activaión
@@ -111,6 +111,14 @@ class Contrato:
         Evento.ManageSpinnerByXpath(driver, '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/app-spinner')
         #obtiene numero de contrato
         print("se generó exitosamente contrato empresarial: "+str(Evento.GetValueInputDisabledByXpath(driver, '/html/body/app-root/app-content-layout/div/app-contrato-empresarial-edit/p-panel/div/div[2]/div/div/p-tabview/div/div[2]/p-tabpanel[1]/div/app-contrato-empresarial-info-edit/form/p-panel[1]/div/div[2]/div/div/div[3]/input')))
+        url = driver.Element.get_attribute('data-url') #obtengo el link del navegador
+        ID_Contrato = ""
+        i = len(url) - 1
+
+        while i >= 0 and url[i].isdigit():
+            ID_Contrato = url[i] + ID_Contrato
+            i -= 1
+        print ("ID del contrato es:"+str(ID_Contrato))
         driver.find_element(By.XPATH , '//img').click()  #sale a pantalla principal
 
 
